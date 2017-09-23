@@ -1,0 +1,7 @@
+{
+    "urlGoa": {
+        "roomlist": "http://margot.di.unipi.it/test10/goa/2017/1/getroomlist/Informatica",
+        "timetable": "http://margot.di.unipi.it/test10/goa/2017/1/gettimetable/Informatica"
+    },
+    "urlCorsi": "https://www.di.unipi.it/it/didattica/offerta-didattica/corsi-erasmus"
+}
