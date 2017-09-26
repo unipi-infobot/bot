@@ -2,11 +2,11 @@
  * Questo progetto e tutto il suo sorgente sono distribuiti sotto licenza MIT.
  */
 
-const settings = require("./settings.json")
+const settings     = require("./settings.json")
 const parseCourses = require("./parseCourses.js")
-const loadGoaData = require("./goaLoad.js")
-const queries = require("./queries.js")
-const moment = require("moment")
+const loadGoaData  = require("./goaLoad.js")
+const queries      = require("./queries.js")
+const moment       = require("moment")
 
 async function main() {
     const { rooms, lessons } = await loadGoaData()

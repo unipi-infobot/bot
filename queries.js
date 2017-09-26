@@ -1,6 +1,6 @@
 /**
  * Restituisce tutte le aule in un edificio
- * @param {Room[]} rooms 
+ * @param {Room[]} rooms
  * @param {String} building
  * @returns {Room[]}
  */
@@ -10,8 +10,8 @@ const getRoomsInBuilding =
 /**
  * Restituisce tutte le lezioni che si stanno svolgendo
  * in un dato momento
- * @param {Lesson[]} lessons 
- * @param {String} day 
+ * @param {Lesson[]} lessons
+ * @param {String} day
  * @param {moment} m
  * @returns {Lesson[]}
  */
@@ -20,9 +20,9 @@ const getLessonsDuringMoment =
 
 /**
  * Ottiene tutte le aule libere ad una certa ora in un dato edificio
- * @param {Lesson[]} lessons 
- * @param {Room[]} rooms 
- * @param {String} day 
+ * @param {Lesson[]} lessons
+ * @param {Room[]} rooms
+ * @param {String} day
  * @param {moment} hour
  * @returns {Lesson[]}
  */

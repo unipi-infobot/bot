@@ -1,13 +1,13 @@
 /*
  * Questo progetto e tutto il suo sorgente sono distribuiti sotto licenza MIT.
- * 
+ *
  * Descrizione: utilities per elaborare i dati GOA
  */
 
-const request = require("request")
+const request       = require("request")
 const { promisify } = require("util")
-const moment = require("moment")
-const settings = require("./settings.json")
+const moment        = require("moment")
+const settings      = require("./settings.json")
 
 const requestAsync = promisify(request)
 

@@ -1,11 +1,11 @@
 /*
  * Questo progetto e tutto il suo sorgente sono distribuiti sotto licenza MIT.
- * 
+ *
  * Descrizione: utilities per effettuare il parsing della pagina d'elenco dei corsi.
  */
 
-const settings = require("./settings.json")
-const jsdom = require("jsdom")
+const settings  = require("./settings.json")
+const jsdom     = require("jsdom")
 const { JSDOM } = jsdom
 
 async function parseCourses() {
