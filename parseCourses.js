@@ -30,7 +30,7 @@ async function parseCourses() {
     }))
 
     const legendList = document.querySelector("#log > ul")
-    const regex = /\s*(\w+-\w+)\s*:\s*([\w\s]+)\s*/
+    const regex = /\s*(\w+-\w+)\s*:\s*(.+)\s*/
     const degrees = Array.from(legendList.children)
         .filter(item => item.textContent) // Non tutte le righe sono popolate
         .map(item => item.textContent.match(regex))
