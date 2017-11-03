@@ -19,7 +19,7 @@ const getLessonsDuringMoment =
     (lessons, day, m) => lessons.filter(x => x.day == day && m.isBetween(x.beginning, x.end))
 
 /**
- * Ottiene tutte le aule libere ad una certa ora in un dato edificio
+ * Restituisce tutte le aule libere ad una certa ora in un dato edificio
  * @param {Lesson[]} lessons
  * @param {Room[]} rooms
  * @param {String} day
@@ -32,7 +32,7 @@ function getFreeRooms(lessons, rooms, day, hour) {
 }
 
 /**
- * Ottiene tutte le lezioni tenute da un dato corso
+ * Restituisce tutte le lezioni tenute da un dato corso
  * @param {Lesson[]} lessons
  * @param {Course} course
  * @returns {Lesson[]}
