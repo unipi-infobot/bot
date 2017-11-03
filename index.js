@@ -9,6 +9,7 @@ const queries      = require("./queries.js")
 const moment       = require("moment")
 const restify      = require("restify")
 
+// Imposta gli endpoint relativi alla versione 1 delle API REST
 function v1Endpoints(server, rooms, lessons, degrees, courses) {
     // Corsi
     server.get('/v1/degrees', (req, res, next) => {
