@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Bot telegram per il corso di informatica triennale dell'UniPi",
   "main": "index.js",
-  "author": "Francesco Bertolaccini <bertolaccinifrancesco@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "jsdom": "^11.2.0",
     "moment": "^2.18.1",
-    "request": "^2.82.0"
+    "request": "^2.82.0",
+    "restify": "^6.3.1",
+    "yargs": "^9.0.1"
   }
 }

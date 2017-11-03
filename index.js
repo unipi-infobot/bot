@@ -7,21 +7,78 @@ const parseCourses = require("./parseCourses.js")
 const loadGoaData  = require("./goaLoad.js")
 const queries      = require("./queries.js")
 const moment       = require("moment")
+const restify      = require("restify")
+
+function v1Endpoints(server, rooms, lessons, degrees, courses) {
+    // Corsi
+    server.get('/v1/degrees', (req, res, next) => {
+        res.json(degrees)
+        next()
+    })
+
+    server.get('/v1/degrees/:abbr/courses', (req, res, next) => {
+        res.json(courses.filter(x => x.laurea == req.params.abbr))
+        next()
+    })
+
+    server.get('/v1/degrees/:abbr/courses/semesters/:sem', (req, res, next) => {
+        res.json(courses.filter(x => x.laurea == req.params.abbr && x.semestre == req.params.sem))
+        next()
+    })
+
+    // Edifici
+    server.get('/v1/buildings', (req, res, next) => {
+        let buildings = new Set()
+        for(let i in rooms) {
+            buildings.add(rooms[i].building)
+        }
+        res.json(Array.from(buildings))
+        next()
+    })
+
+    server.get('/v1/buildings/:name/rooms', (req, res, next) => {
+        res.json(queries.getRoomsInBuilding(rooms, req.params.name))
+        next()
+    })
+
+    // Lezioni
+    server.get('/v1/lessons/days/:day', (req, res, next) => {
+        res.json(lessons.filter(x => x.lessons == req.params.day))
+        next()
+    })
+
+    server.get('/v1/lessons/days/:day/:hour/:minute', (req, res, next) => {
+        const moment = moment(parseInt(req.params.hour).toString() + ":" + parseInt(req.params.minute).toString())
+        res.json(queries.getLessonsDuringMoment(lessons, req.params.day, moment))
+        next()
+    })
+    
+    server.get('/v1/lessons/buildings/:bld', (req, res, next) => {
+        const isInBuilding = (roomname, building) => {
+            const room = rooms.find(x => x.name == roomname)
+            return room && room.building == building
+        }
+        res.json(lessons.filter(x => isInBuilding(x.room, req.params.bld)))
+        next()
+    })
+    
+    server.get('/v1/lessons/rooms/:room', (req, res, next) => {
+        res.json(lessons.filter(x => x.room == req.params.room))
+        next()
+    })
+}
 
 async function main() {
+    console.log("Server REST in avvio. Caricamento dati in corso...");
     const { rooms, lessons } = await loadGoaData()
     const { degrees, courses } = await parseCourses()
-    console.log("Lauree:")
-    degrees.map(x => console.log(x.sigla, x.nome))
-    console.log("Corsi:")
-    courses.map(x => console.log(x.sigla, x.titolo))
-    console.log("Aule libere venerdì alle 11.20:")
-    queries.getFreeRooms(lessons, rooms, "Ven", moment("11:20", "HH:mm")).map(x => console.log(x.name))
-    console.log("Aule libere venerdì alle 11.20 al Fibonacci:")
-    queries.getFreeRooms(lessons,
-        queries.getRoomsInBuilding(rooms, "Polo Fibonacci B"),
-        "Ven", moment("11:20", "HH:mm"))
-        .map(x => console.log(x.name))
+    console.log("Caricamento completato. Avvio server REST...")
+    const server = restify.createServer()
+    v1Endpoints(server, rooms, lessons, degrees, courses)
+    server.name = "unipi-info-bot"
+    server.listen(8080, () => {
+        console.log('Server in ascolto:', server.name, server.url)
+    })
 }
 
 main()
