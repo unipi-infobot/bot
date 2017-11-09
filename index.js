@@ -8,6 +8,8 @@ const loadGoaData  = require("./goaLoad.js")
 const queries      = require("./queries.js")
 const moment       = require("moment")
 const restify      = require("restify")
+const fs           = require("fs")
+const config       = JSON.parse(fs.readFileSync("./config.json", "utf8"))
 
 // Imposta gli endpoint relativi alla versione 1 delle API REST
 function v1Endpoints(server, rooms, lessons, degrees, courses) {
@@ -53,7 +55,7 @@ function v1Endpoints(server, rooms, lessons, degrees, courses) {
         res.json(queries.getLessonsDuringMoment(lessons, req.params.day, moment))
         next()
     })
-    
+
     server.get('/v1/lessons/buildings/:bld', (req, res, next) => {
         const isInBuilding = (roomname, building) => {
             const room = rooms.find(x => x.name == roomname)
@@ -62,7 +64,7 @@ function v1Endpoints(server, rooms, lessons, degrees, courses) {
         res.json(lessons.filter(x => isInBuilding(x.room, req.params.bld)))
         next()
     })
-    
+
     server.get('/v1/lessons/rooms/:room', (req, res, next) => {
         res.json(lessons.filter(x => x.room == req.params.room))
         next()
@@ -77,7 +79,7 @@ async function main() {
     const server = restify.createServer()
     v1Endpoints(server, rooms, lessons, degrees, courses)
     server.name = "unipi-info-bot"
-    server.listen(8080, () => {
+    server.listen(config.port, () => {
         console.log('Server in ascolto:', server.name, server.url)
     })
 }
