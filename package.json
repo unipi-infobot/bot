@@ -7,6 +7,7 @@
   "dependencies": {
     "jsdom": "^11.2.0",
     "moment": "^2.18.1",
+    "prettyjson": "^1.2.1",
     "request": "^2.82.0",
     "restify": "^6.3.1",
     "yargs": "^9.0.1"
